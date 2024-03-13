@@ -1,10 +1,6 @@
 import axios from "axios";
-const { GoogleSafeBrowsingClient } = require("google-safe-browsing");
 
 const url = "http://localhost:8000";
-const safeBrowsingClient = new GoogleSafeBrowsingClient(
-  "AIzaSyA2MZS29FKZVy5Q46vuI9cyfp4zDMjxKcM"
-);
 
 export const addUser = async (data) => {
   try {
@@ -68,11 +64,13 @@ export const uploadFile = async (data) => {
   }
 };
 
-export const isPhishingUrl = async (url) => {
+export const isPhishingUrl = async (message) => {
   try {
-    let response = await safeBrowsingClient.isUrlSafe(url);
-    return !response;
+    const response = await axios.post(`${url}/prediction`, message );
+    console.log(message, "is a phishing link?", response);
+    return response.data;
   } catch (error) {
-    console.error("Error while checkign url");
+    console.error("Error while checking url", error);
+    throw error;
   }
 };

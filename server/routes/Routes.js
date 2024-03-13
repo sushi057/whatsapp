@@ -9,6 +9,7 @@ import { newMessage, getMessage } from "../controller/message-controller.js";
 import { uploadImage, getImage } from "../controller/image-controller.js";
 
 import upload from "../utils/upload.js";
+import { checkPhishing } from "../controller/phishing-prediction.js";
 
 const route = express.Router();
 
@@ -28,4 +29,5 @@ route.get("/message/get/:id", getMessage);
 route.post("/file/upload", upload.single("file"), uploadImage);
 route.get("/file/:filename", getImage);
 
+route.post("/prediction", checkPhishing);
 export default route;

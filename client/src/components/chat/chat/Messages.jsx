@@ -99,20 +99,20 @@ const Messages = ({ person, conversation }) => {
         };
       }
 
-      const containsLink = /\b(?:https?|ftp):\/\/\S+/i.test(value);
-      if (containsLink) {
-        try {
-          console.log("checking for phishing sites");
-          const isPhishing = await isPhishingUrl(value);
-          if (isPhishing) {
-            console.log("Phishing URL detected! Message not sent.");
-            return;
-          }
-        } catch (error) {
-          console.error("Error checking phishing URL:", error);
-          return;
-        }
-      }
+      // const containsLink = /\b(?:https?|ftp):\/\/\S+/i.test(value);
+      // if (containsLink) {
+      //   try {
+      //     console.log("checking for phishing sites");
+      //     const isPhishing = await isPhishingUrl(value);
+      //     if (isPhishing) {
+      //       console.log("Phishing URL detected! Message not sent.");
+      //       return;
+      //     }
+      //   } catch (error) {
+      //     console.error("Error checking phishing URL:", error);
+      //     return;
+      //   }
+      // }
       socket.current.emit("sendMessage", message);
 
       await newMessages(message);
