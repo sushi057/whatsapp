@@ -8,15 +8,12 @@ export const checkPhishing = async (request, response) => {
     request.body.text,
   ]);
 
-  if (request.body.text.includes(".")) {
-    pythonProcess.stdout.on("data", (data) => {
-      const result = data.toString().trim(); // Trim any leading or trailing whitespace
-      phishingPrediction = result.substring(2, result.length - 2); // Extract the word between '[' and ']'
-      response.send(phishingPrediction === "bad");
-
-      // console.log("Phishing Detection prediction:", phishingPrediction);
-    });
-  }
+  pythonProcess.stdout.on("data", (data) => {
+    const result = data.toString().trim(); // Trim any leading or trailing whitespace
+    phishingPrediction = result.substring(2, result.length - 2); // Extract the word between '[' and ']'
+    // response.send(phishingPrediction === "bad");
+    // return response.status(200).json(phishingPrediction === "bad")
+  });
 
   pythonProcess.stderr.on("data", (data) => {
     console.error(`stderr: ${data}`);

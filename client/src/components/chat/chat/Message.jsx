@@ -99,10 +99,12 @@ const TextMessage = ({ message }) => {
       {isLoading ? (
         <Text>Loading...</Text>
       ) : (
-        <Text style={{ color: isPhishing ? "red" : "blue" }}>
-          {message.text}
-          {isPhishing ? " X Phishing Site detected" : ""}
-        </Text>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <Text style={{ color: isPhishing ? "red" : "blue" }}>
+            {message.text}
+          </Text>
+          <Text>{isPhishing ? "Phishing Site detected" : ""}</Text>
+        </div>
       )}
 
       <Time>{formatDate(message.createdAt)}</Time>

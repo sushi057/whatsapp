@@ -66,11 +66,11 @@ export const uploadFile = async (data) => {
 
 export const isPhishingUrl = async (message) => {
   try {
-    const response = await axios.post(`${url}/prediction`, message );
+    const response = await axios.post(`${url}/prediction`, message);
     console.log(message, "is a phishing link?", response);
-    return response.data;
+    return await response.data;
   } catch (error) {
     console.error("Error while checking url", error);
-    throw error;
+    return {}
   }
 };
